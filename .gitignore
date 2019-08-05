@@ -5,5 +5,5 @@
 .gradle
 gradlew
 gradlew.bat
-gradle
-out
+gradle/
+out/
