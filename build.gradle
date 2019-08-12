@@ -19,7 +19,6 @@ dependencies {
             "io.netty:netty-all:4.1.10.Final",
             "com.google.protobuf:protobuf-java:3.8.0",
             "com.google.protobuf:protobuf-java-util:3.8.0"
-            
     )
 }
 
