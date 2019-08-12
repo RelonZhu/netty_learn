@@ -17,9 +17,9 @@ public class MyChatServerHandler extends SimpleChannelInboundHandler<String> {
         Channel channel = ctx.channel();
         channelGroup.forEach(ch -> {
             if (ch != channel) {
-                ch.writeAndFlush(channel.remoteAddress() + "发送的消息：" + msg + "\n");
+                ch.writeAndFlush(channel.remoteAddress() + "发送的消息：" + msg + "\r\n");
             } else {
-                ch.writeAndFlush("[自己]" + "发送的消息:" + msg + "\n" );
+                ch.writeAndFlush("[自己]" + "发送的消息:" + msg + "\r\n" );
             }
         });
     }

@@ -1,3 +1,5 @@
+import javax.tools.JavaCompiler
+
 plugins {
     id 'java'
 }
@@ -14,6 +16,13 @@ repositories {
 
 dependencies {
     compile (
-            "io.netty:netty-all:4.1.10.Final"
+            "io.netty:netty-all:4.1.10.Final",
+            "com.google.protobuf:protobuf-java:3.8.0",
+            "com.google.protobuf:protobuf-java-util:3.8.0"
+            
     )
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding="UTF-8"
 }
