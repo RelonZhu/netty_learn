@@ -38,3 +38,23 @@ childHandler会对workerLoopGroup起作用
 1. java序列化， 语言独有
 2. 序列化成xml，但占空间较大，数据解析开销较大
 3. 自定义编码文件
+
+### 写代码中遇到的问题
+    
+    ChannelFuture channelFuture = bootstrap.connect("localhost", 8899).sync();
+                channelFuture.channel().closeFuture().sync();
+    
+
+与
+    ```ChannelFuture channelFuture = bootstrap.connect("localhost", 8899).sync();
+                       channelFuture.channel().close().sync(); ```
+    
+有什么区别？
+channelFuture调用close()方法启动之后会接着关闭，但是closeFuture()能够正常启动，为什么？？？
+
+### ProtoBuf最佳实践
+针对不同项目之间共享同一个.proto文件和生成的类
+
+git submodule:git仓库里的一个仓库
+git subtree:
+

@@ -1,11 +1,10 @@
 import javax.tools.JavaCompiler
 
-plugins {
-    id 'java'
-}
-
 group 'com.relon'
 version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -18,9 +17,41 @@ dependencies {
     compile (
             "io.netty:netty-all:4.1.10.Final",
             "com.google.protobuf:protobuf-java:3.8.0",
-            "com.google.protobuf:protobuf-java-util:3.8.0"
+            "com.google.protobuf:protobuf-java-util:3.8.0",
+            "org.apache.thrift:libthrift:0.12.0",
+            'io.grpc:grpc-netty-shaded:1.23.0',
+            'io.grpc:grpc-protobuf:1.23.0',
+            'io.grpc:grpc-stub:1.23.0'
     )
+    
 }
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.9.0"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.4.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+
 
 tasks.withType(JavaCompile) {
     options.encoding="UTF-8"
