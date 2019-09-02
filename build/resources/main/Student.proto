@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package com.relon.proto;
+
+option java_package = "com.relon.proto";
+option java_outer_classname = "StudentProto";
+option java_multiple_files = true;
+
+message MyRequest {
+    string username = 1;
+}
+
+message MyResponse {
+    string realname = 1;
+}
+
+service StudentService {
+    rpc GetRealNameByUserName(MyRequest) returns (MyResponse) {}
+}
+
