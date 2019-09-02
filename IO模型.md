@@ -35,8 +35,17 @@ file -> FileInputStream(获取输入字节) -> BufferedInputStream(增加缓冲)
         - java中各种原生数据类型都有各自对应的Buffer类型
         - 三个重要状态属性的含义：position、limit、capacity
             - capacity:Buffer包含的元素总数，永远不会为负数，也不会被修改
-            - limit：
+            - limit：第一个不能够被读取或写入的元素，不会为负数且不会大于capacity
+            - position：将要允许被读取或写入的下一个元素，不会为负数且不会大于limit
+        **调用flip()方法之后**
+            - position：由原位置转到buffer开始的位置
+            - limit：由原位置转到position所在位置的前一个位置
  - 数据来自于Channel，首先数据要先从channel中读入Buffer，然后再读入程序，不允许直接
     
  从Channel中将数据写入程序
  - 进行读写切换前要调用flip()方法，进行读写状态反转
+ 
+ 
+ ## 通过NIO进行文件读写的三个步骤
+ ### 读文件
+ 1. 通过文件创建FileInputStream对象，并通过该对象的getChannel
