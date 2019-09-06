@@ -48,4 +48,26 @@ file -> FileInputStream(获取输入字节) -> BufferedInputStream(增加缓冲)
  
  ## 通过NIO进行文件读写的三个步骤
  ### 读文件
- 1. 通过文件创建FileInputStream对象，并通过该对象的getChannel
+ 1. 通过文件创建FileInputStream对象，并通过该对象的getChannel方法获取channel对象
+ 2. 创建字节数组buffer对象用于存储文件字节内容
+ 3. 调用channel对象的read(buffer)方法把文件内容写入到buffer
+ ### 写文件
+ 1. 创建FileOutputStream对象
+ 2. 调用buffer的flip()方法，切换状态
+ 3. 利用步骤1中所创建对象的getChannel()方法
+ 4. 调用channel对象的write()方法，读出buffer中的内容写入到文件
+ 
+ ## 绝对方法与相对方法
+ * 相对方法
+    * limit和position会在操作时被考虑到
+ * 绝对方法
+    * 绝对方法会完全忽略掉limit与position
+    
+ ## directBuffer VS HeapByteBuffer
+ * 使用HeapByteBuffer，buffer数据是使用的JVM的堆内存，当需要与外部IO设备交互时，需要将堆内存中的数据拷贝到
+ 操作系统中的一块内存空间(堆外内存)中，然后再与IO设备交互
+ * 使用DirectByteBuffer，会使用堆内存保存对象，而且也会在堆外内存中维护一个备份，直接使用堆外内存，中间少了一次拷贝过程，此就称为“零拷贝”
+ 
+ ## buffer中的Scattering和Gathering
+ * Scattering：将一个channel中的数据读到多个buffer中
+ * Gathering：将多个buffer(buffer数组)中的数据读到一个channel中
