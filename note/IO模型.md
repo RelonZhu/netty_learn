@@ -71,3 +71,10 @@ file -> FileInputStream(获取输入字节) -> BufferedInputStream(增加缓冲)
  ## buffer中的Scattering和Gathering
  * Scattering：将一个channel中的数据读到多个buffer中
  * Gathering：将多个buffer(buffer数组)中的数据读到一个channel中
+ 
+ ## Tips
+ 1. 使用Windows下Telnet功能时，发现是逐个字符发送数据，而在Unix系统下直到按下回车才会发送数据，此时如果需要按行发送数据，那么只需要在
+ Telnet界面使用```ctl + ]```进入命令行格式，使用命令```send message-content```就可以发送整行数据
+ 
+ ### zero-copy
+ [零拷贝](./zero%20copy.md)

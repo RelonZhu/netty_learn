@@ -56,5 +56,5 @@ channelFuture调用close()方法启动之后会接着关闭，但是closeFuture(
 针对不同项目之间共享同一个.proto文件和生成的类
 
 git submodule:git仓库里的一个仓库
-git subtree:
+git subtree
 

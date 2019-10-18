@@ -46,6 +46,7 @@ public class NioTest12 {
             System.out.println("selectKeys:" + selectionKeys);
 
             Iterator<SelectionKey> iterator = selectionKeys.iterator();
+
             while (iterator.hasNext()) {
                 SelectionKey next = iterator.next();
                 if (next.isAcceptable()) {
@@ -57,11 +58,22 @@ public class NioTest12 {
                     iterator.remove();
                     System.out.println("获取客户端连接：" + accept);
                 } else if (next.isReadable()) {
-                    ServerSocketChannel channel = (ServerSocketChannel) next.channel();
+                    SocketChannel channel = (SocketChannel) next.channel();
                     int byteRead = 0;
-                    ByteBuffer buffer = ByteBuffer.allocate(512);
                     while (true) {
+                        ByteBuffer buffer = ByteBuffer.allocate(512);
+                        buffer.clear();
+                        int read = channel.read(buffer);
+                        if (read <= 0) {
+                            break;
+                        }
+                        buffer.flip();
+                        channel.write(buffer);
+                        byteRead += read;
+
                     }
+                    System.out.println("读取：" + byteRead + ", 来自于：" + channel);
+                    iterator.remove();
                 }
             }
 
